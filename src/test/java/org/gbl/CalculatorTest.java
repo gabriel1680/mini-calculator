@@ -9,11 +9,6 @@ class CalculatorTest {
     private final Calculator calculator = new Calculator();
 
     @Test
-    void create() {
-        assertThat(calculator).isNotNull();
-    }
-
-    @Test
     void sum() {
         assertThat(calculator.sum(4, 3)).isEqualTo(7);
         assertThat(calculator.sum(1.1, 1.2)).isEqualTo(2.3);
