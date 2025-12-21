@@ -7,3 +7,6 @@ GUI programming with Java and AWT library.
 * Infix basic mathematical expression parsing and evaluation (e.g.: `((5 - 2) / 3) * 1.5`)
 * Supported operators: `+`, `-`, `*`, `/`
 * Supported numbers set: `Real Numbers`
+
+## Example
+![image](./assets/screen.png)
