@@ -35,7 +35,7 @@ class FakeCalculatorView implements CalculatorView {
     }
 
     @Override
-    public void clearText() {
+    public void clear() {
         lastText = "";
     }
 

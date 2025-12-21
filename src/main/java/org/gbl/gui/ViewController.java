@@ -6,14 +6,12 @@ public class ViewController {
 
     private final Calculator calculator;
     private final CalculatorView view;
-    private final StringBuilder input;
-    private boolean showingResult;
+    private final InputState state;
 
     public ViewController(Calculator calculator, CalculatorView view) {
         this.calculator = calculator;
         this.view = view;
-        this.input = new StringBuilder();
-        this.showingResult = false;
+        this.state = new InputState();
     }
 
     public void show() {
@@ -25,55 +23,34 @@ public class ViewController {
             case CalculatorInput.Clear c -> clear();
             case CalculatorInput.Backspace b -> backspace();
             case CalculatorInput.Evaluate e -> evaluate();
-            case CalculatorInput.Digit digit -> appendLabel(digit.value());
-            case CalculatorInput.Operator operator -> appendLabel(operator.value());
+            case CalculatorInput.Digit digit -> append(digit.value());
+            case CalculatorInput.Operator operator -> append(operator.value());
         }
     }
 
-    private void appendLabel(String label) {
-        if (showingResult) {
-            if (isDigit(label)) {
-                input.setLength(0); // start new expression
-            }
-            showingResult = false;
-        }
-        input.append(label);
-        view.showInput(input.toString());
-    }
-
-    private boolean isDigit(String value) {
-        return value.length() == 1 && Character.isDigit(value.charAt(0));
+    private void append(String value) {
+        state.append(value);
+        view.showInput(state.getInput());
     }
 
     private void backspace() {
-        if (!input.isEmpty()) {
-            input.deleteCharAt(input.length() - 1);
-            view.showInput(input.toString());
-        }
-        showingResult = false;
+        state.backspace();
+        view.showInput(state.getInput());
     }
 
     private void clear() {
-        clearInputBuffer();
-        showingResult = false;
-        view.clearText();
+        state.clear();
+        view.clear();
     }
 
     private void evaluate() {
         try {
-            double result = calculator.calculate(input.toString());
+            final var result = calculator.calculate(state.getInput());
             view.showResult(result);
-            clearInputBuffer();
-            input.append(result);   // ⭐ carry result forward
-            showingResult = true;
+            state.setResult(result);
         } catch (Exception e) {
             view.showError(e);
-            clearInputBuffer();
-            showingResult = false;
+            state.clear();
         }
-    }
-
-    private void clearInputBuffer() {
-        input.setLength(0);
     }
 }

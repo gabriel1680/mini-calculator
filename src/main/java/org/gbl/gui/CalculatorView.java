@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 public interface CalculatorView {
 
-    void clearText();
+    void clear();
 
     void onInput(Consumer<CalculatorInput> listener);
 
