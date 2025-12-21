@@ -1,18 +1,18 @@
-package org.gbl;
+package org.gbl.calculator;
 
 import java.util.Stack;
 
-public class ExpressionEvaluator {
+class ExpressionEvaluator {
 
     private final char separator;
     private final SimpleCalculator calculator;
 
-    public ExpressionEvaluator(char separator) {
+    ExpressionEvaluator(char separator) {
         this.separator = separator;
         this.calculator = new SimpleCalculator();
     }
 
-    public double evaluate(final String postfixExpression) {
+    double evaluate(final String postfixExpression) {
         final String[] tokens = postfixExpression.split(String.valueOf(separator));
         final var stack = new Stack<Double>();
         for (String token : tokens) {

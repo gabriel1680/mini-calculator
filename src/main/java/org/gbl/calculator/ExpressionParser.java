@@ -1,16 +1,16 @@
-package org.gbl;
+package org.gbl.calculator;
 
 import java.util.Stack;
 
-public class ExpressionParser {
+class ExpressionParser {
 
     private final char separator;
 
-    public ExpressionParser(char separator) {
+    ExpressionParser(char separator) {
         this.separator = separator;
     }
 
-    public String infixToPostfix(final String expression) {
+    String infixToPostfix(final String expression) {
         final var postfix = new StringBuilder();
         final var operators = new Stack<Character>();
         for (int i = 0; i < expression.length(); i++) {

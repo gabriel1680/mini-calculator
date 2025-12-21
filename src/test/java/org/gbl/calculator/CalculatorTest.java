@@ -1,4 +1,4 @@
-package org.gbl;
+package org.gbl.calculator;
 
 import org.junit.jupiter.api.Test;
 
