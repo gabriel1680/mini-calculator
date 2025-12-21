@@ -73,4 +73,43 @@ class ViewControllerTest {
         controller.handle(new CalculatorInput.Evaluate());
         assertThat(view.lastError()).isNotNull();
     }
+
+    @Test
+    void backspace() {
+        controller.handle(new CalculatorInput.Operator("1"));
+        controller.handle(new CalculatorInput.Operator("2"));
+        controller.handle(new CalculatorInput.Backspace());
+        assertThat(view.lastText()).isEqualTo("12");
+    }
+
+    @Test
+    void doubleBackspace() {
+        controller.handle(new CalculatorInput.Operator("1"));
+        controller.handle(new CalculatorInput.Operator("2"));
+        controller.handle(new CalculatorInput.Backspace());
+        controller.handle(new CalculatorInput.Backspace());
+        assertThat(view.lastText()).isEqualTo("");
+    }
+
+    @Test
+    void doubleBackspaceAfterIsEmpty() {
+        controller.handle(new CalculatorInput.Operator("1"));
+        controller.handle(new CalculatorInput.Backspace());
+        controller.handle(new CalculatorInput.Backspace());
+        assertThat(view.lastText()).isEqualTo("");
+    }
+
+    @Test
+    void show() {
+        assertThat(view.showing()).isFalse();
+        controller.show();
+        assertThat(view.showing()).isTrue();
+    }
+
+    @Test
+    void registerInputListeners() {
+        assertThat(view.consumers()).size().isEqualTo(0);
+        view.onInput(controller::handle);
+        assertThat(view.consumers()).size().isEqualTo(1);
+    }
 }
