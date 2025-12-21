@@ -1,4 +1,4 @@
-package org.gbl.gui;
+package org.gbl.gui.controller;
 
 import org.gbl.calculator.Calculator;
 

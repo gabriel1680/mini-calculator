@@ -1,4 +1,4 @@
-package org.gbl.gui.components;
+package org.gbl.gui.view;
 
 import java.awt.*;
 import java.awt.event.ActionListener;

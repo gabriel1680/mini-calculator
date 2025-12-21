@@ -1,7 +1,8 @@
 package org.gbl.gui;
 
 import org.gbl.calculator.Calculator;
-import org.gbl.gui.components.CalculatorViewImpl;
+import org.gbl.gui.controller.ViewController;
+import org.gbl.gui.view.CalculatorViewImpl;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
-package org.gbl.gui;
+package org.gbl.gui.controller;
 
-public class InputState {
+class InputState {
 
     private final StringBuilder input = new StringBuilder();
     private boolean showingResult = false;
@@ -33,10 +33,6 @@ public class InputState {
 
     public String getInput() {
         return input.toString();
-    }
-
-    public boolean isShowingResult() {
-        return showingResult;
     }
 
     private boolean isDigit(String value) {

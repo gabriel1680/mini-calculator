@@ -1,5 +1,8 @@
 package org.gbl.gui;
 
+import org.gbl.gui.controller.CalculatorInput;
+import org.gbl.gui.controller.CalculatorView;
+
 class FakeCalculatorView implements CalculatorView {
 
     private String lastText;

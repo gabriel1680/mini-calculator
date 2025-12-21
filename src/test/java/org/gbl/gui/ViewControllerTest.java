@@ -1,6 +1,8 @@
 package org.gbl.gui;
 
 import org.gbl.calculator.Calculator;
+import org.gbl.gui.controller.CalculatorInput;
+import org.gbl.gui.controller.ViewController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
