@@ -34,7 +34,7 @@ class Display implements Presentable {
         return panel;
     }
 
-    void setText(String text) {
+    public void setText(String text) {
         textField.setText(text);
     }
 }

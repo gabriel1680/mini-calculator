@@ -2,62 +2,57 @@ package org.gbl.gui.components;
 
 import org.gbl.calculator.Calculator;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ViewController {
 
     private final Calculator calculator;
-    private final Display display;
+    private final CalculatorViewImpl view;
     private final StringBuilder input;
 
-    private final Map<String, Runnable> actions;
-
-    public ViewController(Calculator calculator, Display display) {
+    public ViewController(Calculator calculator, CalculatorViewImpl view) {
         this.calculator = calculator;
-        this.display = display;
+        this.view = view;
         this.input = new StringBuilder();
-
-        actions = new HashMap<>();
-        actions.put("CE", this::clear);
-        actions.put("←", this::backspace);
-        actions.put("=", this::evaluate);
     }
 
-    public void handleInput(String label) {
-        Runnable action = actions.get(label);
-        if (action != null) {
-            action.run();
-        } else {
-            appendLabel(label);
+    public void handle(CalculatorInput input) {
+        switch (input) {
+            case CalculatorInput.Clear c -> clear();
+            case CalculatorInput.Backspace b -> backspace();
+            case CalculatorInput.Evaluate e -> evaluate();
+            case CalculatorInput.Digit digit -> appendLabel(digit.value());
+            case CalculatorInput.Operator operator -> appendLabel(operator.value());
         }
     }
 
     private void appendLabel(String label) {
         input.append(label);
-        display.setText(input.toString());
+        view.showText(input.toString());
     }
 
     private void backspace() {
         if (!input.isEmpty()) {
             input.deleteCharAt(input.length() - 1);
-            display.setText(input.toString());
+            view.showText(input.toString());
         }
     }
 
     private void clear() {
-        input.setLength(0);
-        display.setText("");
+        clearInputBuffer();
+        view.clearText();
     }
 
     private void evaluate() {
         try {
             double result = calculator.calculate(input.toString());
-            display.setText(String.valueOf(result));
-            input.setLength(0);
+            view.showText(String.valueOf(result));
+            clearInputBuffer();
         } catch (Exception e) {
-            display.setText("Error: " + e.getMessage());
-            input.setLength(0);
+            view.showText("Error: " + e.getMessage());
+            clearInputBuffer();
         }
+    }
+
+    private void clearInputBuffer() {
+        input.setLength(0);
     }
 }

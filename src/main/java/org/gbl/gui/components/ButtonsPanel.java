@@ -1,30 +1,42 @@
 package org.gbl.gui.components;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.function.Consumer;
 
 class ButtonsPanel implements Presentable {
     private final Panel panel;
 
-    ButtonsPanel(Consumer<ActionEvent> buttonPressedConsumer) {
+    ButtonsPanel(Consumer<CalculatorInput> buttonPressedConsumer) {
         this.panel = createPanel(buttonPressedConsumer);
     }
 
-    private static Panel createPanel(Consumer<ActionEvent> consumer) {
+    private static Panel createPanel(Consumer<CalculatorInput> consumer) {
         Panel buttonsPanel = new Panel(new GridLayout(5, 4, 5, 5));
-        String[] buttonsIds = {
-                "C", "←", "(", ")",
+        String[] labels = {
+                "CE", "←", "(", ")",
                 "7", "8", "9", "/",
                 "4", "5", "6", "*",
                 "1", "2", "3", "-",
                 "0", ".", "=", "+"};
-        for (String id : buttonsIds) {
-            Button button = new Button(id);
-            button.addActionListener(consumer::accept);
+        for (String label : labels) {
+            Button button = new Button(label);
+            button.addActionListener(e -> {
+                final var input = mapLabel(label);
+                consumer.accept(input);
+            });
             buttonsPanel.add(button);
         }
         return buttonsPanel;
+    }
+
+    private static CalculatorInput mapLabel(String label) {
+        return switch (label) {
+            case "CE" -> new CalculatorInput.Clear();
+            case "←" -> new CalculatorInput.Backspace();
+            case "=" -> new CalculatorInput.Evaluate();
+            case "+", "-", "*", "/", "(", ")" -> new CalculatorInput.Operator(label);
+            default -> new CalculatorInput.Digit(label);
+        };
     }
 
     @Override
