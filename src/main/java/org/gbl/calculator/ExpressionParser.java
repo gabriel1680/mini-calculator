@@ -4,6 +4,8 @@ import java.util.Stack;
 
 class ExpressionParser {
 
+    private static final char DECIMAL_DELIMITER = '.';
+
     private final char separator;
 
     ExpressionParser(char separator) {
@@ -18,14 +20,10 @@ class ExpressionParser {
             if (character == separator) {
                 continue;
             }
-            if (Character.isDigit(character)) {
-                final var number = new StringBuilder();
-                while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
-                    number.append(expression.charAt(i));
-                    i++;
-                }
-                i--; // step back one position
-                postfix.append(number).append(separator);
+            if (Character.isDigit(character) || character == DECIMAL_DELIMITER) {
+                final var result = parseNumber(expression, i);
+                i = result.index() - 1; // step back one position
+                postfix.append(result.token()).append(separator);
             } else if (character == '(') {
                 operators.push(character);
             } else if (character == ')') {
@@ -43,6 +41,29 @@ class ExpressionParser {
         }
         return postfix.toString();
     }
+
+    private ParseNumberResult parseNumber(String expression, int startIndex) {
+        final var number = new StringBuilder();
+        var hasDecimalPoint = false;
+        int i = startIndex;
+        while (i < expression.length()) {
+            final char c = expression.charAt(i);
+            if (Character.isDigit(c)) {
+                number.append(c);
+            } else if (c == DECIMAL_DELIMITER && !hasDecimalPoint) {
+                hasDecimalPoint = true;
+                number.append(c);
+            } else if (c == DECIMAL_DELIMITER) {
+                throw new IllegalArgumentException("Invalid decimal number");
+            } else {
+                break;
+            }
+            i++;
+        }
+        return new ParseNumberResult(number.toString(), i);
+    }
+
+    private record ParseNumberResult(String token, int index) {}
 
     private static boolean havePrecedenceOver(char operation1, char operation2) {
         return precedenceFor(operation1) >= precedenceFor(operation2);

@@ -16,9 +16,6 @@ class ExpressionEvaluator {
         final String[] tokens = postfixExpression.split(String.valueOf(separator));
         final var stack = new Stack<Double>();
         for (String token : tokens) {
-            if (token.isEmpty()) {
-                continue;
-            }
             final var operator = token.charAt(0);
             if (Character.isDigit(operator)) {
                 stack.push(Double.parseDouble(token));
@@ -37,7 +34,7 @@ class ExpressionEvaluator {
             case '-' -> calculator.subtract(a, b);
             case '*' -> calculator.multiply(a, b);
             case '/' -> calculator.divide(a, b);
-            default -> throw new IllegalArgumentException("Unknown operator: " + operator);
+            default -> throw new IllegalArgumentException("Unknown operator: '%s'".formatted(operator));
         };
     }
 }
