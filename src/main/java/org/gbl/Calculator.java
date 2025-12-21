@@ -1,32 +1,15 @@
 package org.gbl;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Stack;
 
 public class Calculator {
 
-    private static final MathContext PRECISION = MathContext.DECIMAL64;
     private static final char SEPARATOR = ' ';
 
-    public double sum(double a, double b) {
-        return toBigDecimal(a).add(toBigDecimal(b), PRECISION).doubleValue();
-    }
+    private final SimpleCalculator calculator;
 
-    public double multiply(double a, double b) {
-        return toBigDecimal(a).multiply(toBigDecimal(b), PRECISION).doubleValue();
-    }
-
-    public double divide(double a, double b) {
-        return toBigDecimal(a).divide(toBigDecimal(b), PRECISION).doubleValue();
-    }
-
-    public double subtract(double a, double b) {
-        return toBigDecimal(a).subtract(toBigDecimal(b), PRECISION).doubleValue();
-    }
-
-    private static BigDecimal toBigDecimal(double a) {
-        return BigDecimal.valueOf(a);
+    public Calculator() {
+        calculator = new SimpleCalculator();
     }
 
     public double calculate(String expression) {
@@ -54,10 +37,10 @@ public class Calculator {
 
     private double compute(char operator, double a, double b) {
         return switch (operator) {
-            case '+' -> sum(a, b);
-            case '-' -> subtract(a, b);
-            case '*' -> multiply(a, b);
-            case '/' -> divide(a, b);
+            case '+' -> calculator.sum(a, b);
+            case '-' -> calculator.subtract(a, b);
+            case '*' -> calculator.multiply(a, b);
+            case '/' -> calculator.divide(a, b);
             default -> throw new IllegalArgumentException("Unknown operator: " + operator);
         };
     }
