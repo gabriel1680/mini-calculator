@@ -5,8 +5,14 @@ GUI programming with Java and AWT library.
 
 ## Features
 * Infix basic mathematical expression parsing and evaluation (e.g.: `((5 - 2) / 3) * 1.5`)
-* Supported operators: `+`, `-`, `*`, `/`
+* Supported operators: `+`, `-`, `*`, `/`, `%`
 * Supported numbers set: `Real Numbers`
+
+### WIP
+
+* Calculator modules:
+  * Basic
+  * Scientific
 
 ## Example
 ![image](./assets/screen.png)
