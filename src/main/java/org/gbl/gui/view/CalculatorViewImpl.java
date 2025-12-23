@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 public class CalculatorViewImpl implements CalculatorView {
 
     private final ContainerFrame frame;
+    private final ButtonsPanel buttonsPanel;
     private Consumer<CalculatorInput> inputListener;
     private final Display display;
 
@@ -17,7 +18,7 @@ public class CalculatorViewImpl implements CalculatorView {
         display = new Display();
         frame.add(display, BorderLayout.NORTH);
 
-        final var buttonsPanel = new ButtonsPanel(this::handleInput);
+        buttonsPanel = new ButtonsPanel(this::handleInput);
         frame.add(buttonsPanel, BorderLayout.CENTER);
     }
 
@@ -31,7 +32,6 @@ public class CalculatorViewImpl implements CalculatorView {
     public void clear() {
         display.setText("");
     }
-
 
     @Override
     public void onInput(Consumer<CalculatorInput> listener) {
@@ -56,5 +56,10 @@ public class CalculatorViewImpl implements CalculatorView {
     @Override
     public void showError(Exception exception) {
         display.setText("Error: %s".formatted(exception.getMessage()));
+    }
+
+    @Override
+    public void switchTo(String mode) {
+        buttonsPanel.switchTo(mode);
     }
 }

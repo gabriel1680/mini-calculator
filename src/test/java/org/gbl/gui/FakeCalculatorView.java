@@ -11,9 +11,14 @@ class FakeCalculatorView implements CalculatorView {
 
     private String lastText;
     private String lastError;
+    private String lastMode;
     private double lastResult = -1.0;
     private boolean showing = false;
     private final Collection<Consumer<CalculatorInput>> consumers = new ArrayList<>();
+
+    public String lastMode() {
+        return lastMode;
+    }
 
     public String lastText() {
         return lastText;
@@ -49,6 +54,11 @@ class FakeCalculatorView implements CalculatorView {
     @Override
     public void showError(Exception exception) {
         lastError = exception.toString();
+    }
+
+    @Override
+    public void switchTo(String mode) {
+        lastMode = mode;
     }
 
     @Override

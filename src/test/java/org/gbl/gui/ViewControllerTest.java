@@ -3,6 +3,7 @@ package org.gbl.gui;
 import org.gbl.calculator.Calculator;
 import org.gbl.gui.controller.CalculatorInput;
 import org.gbl.gui.controller.ViewController;
+import org.gbl.gui.view.mode.CalculatorMode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -111,5 +112,16 @@ class ViewControllerTest {
         assertThat(view.consumers()).size().isEqualTo(0);
         view.onInput(controller::handle);
         assertThat(view.consumers()).size().isEqualTo(1);
+    }
+
+    @Test
+    void changeMode() {
+        var mode = CalculatorMode.BASIC.stringValue();
+        view.switchTo(mode);
+        assertThat(view.lastMode()).isEqualTo(mode);
+
+        mode = CalculatorMode.SCIENTIFIC.stringValue();
+        view.switchTo(mode);
+        assertThat(view.lastMode()).isEqualTo(mode);
     }
 }

@@ -1,6 +1,7 @@
 package org.gbl.gui.controller;
 
 import org.gbl.calculator.Calculator;
+import org.gbl.gui.controller.CalculatorInput.Mode;
 
 public class ViewController {
 
@@ -24,9 +25,16 @@ public class ViewController {
             case CalculatorInput.Backspace b -> backspace();
             case CalculatorInput.Evaluate e -> evaluate();
             case CalculatorInput.InvertSignal i -> invertSignal();
+            case CalculatorInput.Mode mode -> changeMode(mode);
             case CalculatorInput.Digit digit -> append(digit.value());
             case CalculatorInput.Operator operator -> append(operator.value());
         }
+    }
+
+    private void changeMode(Mode mode) {
+        state.clear();
+        view.clear();
+        view.switchTo(mode.value());
     }
 
     private void invertSignal() {

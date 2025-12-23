@@ -15,4 +15,6 @@ public interface CalculatorView {
     void showInput(String input);
 
     void showError(Exception exception);
+
+    void switchTo(String mode);
 }
