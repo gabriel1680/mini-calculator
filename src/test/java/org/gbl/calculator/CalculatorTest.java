@@ -29,6 +29,7 @@ class CalculatorTest {
         assertThat(calculator.calculate("1.1-1.2")).isEqualTo(-0.1);
         assertThat(calculator.calculate("2.0*5")).isEqualTo(10);
         assertThat(calculator.calculate("2.2/5.5")).isEqualTo(0.4);
+        assertThat(calculator.calculate("√4")).isEqualTo(2);
     }
 
     @Test
@@ -79,5 +80,6 @@ class CalculatorTest {
     void operatorsPrecedence() {
         assertThat(calculator.calculate("12 + 155 * 2 - 10")).isEqualTo(312);
         assertThat(calculator.calculate("12 + 200 / 2 * 10")).isEqualTo(1012);
+        assertThat(calculator.calculate("2 * √16 + 4")).isEqualTo(12);
     }
 }

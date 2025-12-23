@@ -2,8 +2,11 @@ package org.gbl.calculator;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 
 class ExpressionEvaluator {
+
+    private static final List<String> UNARY_OPERATORS = List.of("√");
 
     private final char separator;
     private final SimpleCalculator calculator;
@@ -27,9 +30,14 @@ class ExpressionEvaluator {
             stack.push(Double.parseDouble(token));
             return;
         }
-        final double b = stack.pop();
-        final double a = stack.pop();
-        stack.push(compute(firstCharacter, a, b));
+        if (UNARY_OPERATORS.contains(token)) {
+            final double operand = stack.pop();
+            stack.push(compute(firstCharacter, operand, 0));
+        } else { // binary operators
+            final double b = stack.pop();
+            final double a = stack.pop();
+            stack.push(compute(firstCharacter, a, b));
+        }
     }
 
     private double compute(char operator, double a, double b) {
@@ -39,6 +47,7 @@ class ExpressionEvaluator {
             case '*' -> calculator.multiply(a, b);
             case '/' -> calculator.divide(a, b);
             case '%' -> calculator.module(a, b);
+            case '√' -> calculator.squareRoot(a);
             default ->
                     throw new IllegalArgumentException("Unknown operator: '%s'".formatted(operator));
         };

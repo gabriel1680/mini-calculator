@@ -63,6 +63,7 @@ public class ViewController {
             view.showResult(result);
             state.setResult(result);
         } catch (Exception e) {
+            System.out.println(e);
             view.showError(e);
             state.clear();
         }

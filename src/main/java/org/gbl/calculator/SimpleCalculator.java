@@ -27,6 +27,10 @@ class SimpleCalculator {
         return toBigDecimal(a).remainder(toBigDecimal(b), PRECISION).doubleValue();
     }
 
+    double squareRoot(double value) {
+        return toBigDecimal(value).sqrt(PRECISION).doubleValue();
+    }
+
     private static BigDecimal toBigDecimal(double a) {
         return BigDecimal.valueOf(a);
     }

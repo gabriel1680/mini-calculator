@@ -71,6 +71,7 @@ class ExpressionParser {
 
     private static int precedenceFor(char operation) {
         return switch (operation) {
+            case '√' -> 3;
             case '*', '/' -> 2;
             case '+', '-' -> 1;
             default -> 0;
