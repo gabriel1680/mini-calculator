@@ -3,6 +3,11 @@
 This project is a basic calculator with a GUI interface to exercise TDD, Object Oriented Programming and learning more
 GUI programming with Java and AWT library.
 
+## Architectural Patterns
+
+* Modular Monolith for the project overall structure
+* Model-View-Controller for the UI
+
 ## Features
 
 * Infix basic mathematical expression parsing and evaluation (e.g.: `((5 - 2) / 3) * 1.5`)
