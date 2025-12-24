@@ -6,14 +6,14 @@ import org.gbl.gui.controller.CalculatorView;
 import java.awt.*;
 import java.util.function.Consumer;
 
-public class CalculatorViewImpl implements CalculatorView {
+public class AWTCalculatorView implements CalculatorView {
 
     private final ContainerFrame frame;
     private final ButtonsPanel buttonsPanel;
     private Consumer<CalculatorInput> inputListener;
     private final Display display;
 
-    public CalculatorViewImpl() {
+    public AWTCalculatorView() {
         frame = new ContainerFrame();
         display = new Display();
         frame.add(display, BorderLayout.NORTH);
