@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'org.gbl'
@@ -18,4 +19,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.register("runCli", JavaExec) {
+    group = "application"
+    description = "Runs CLI App"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("org.gbl.cli.Main")
+}
+
+tasks.register("runGui", JavaExec) {
+    group = "application"
+    description = "Runs GUI App"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("org.gbl.gui.Main")
 }

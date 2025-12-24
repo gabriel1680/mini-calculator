@@ -1,4 +1,4 @@
-package org.gbl;
+package org.gbl.cli;
 
 import org.gbl.calculator.Calculator;
 
