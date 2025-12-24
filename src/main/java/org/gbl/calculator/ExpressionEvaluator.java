@@ -16,8 +16,8 @@ class ExpressionEvaluator {
         this.calculator = new SimpleCalculator();
     }
 
-    double evaluate(final String postfixExpression) {
-        final String[] tokens = postfixExpression.split(String.valueOf(separator));
+    double evaluate(final String expression) {
+        final String[] tokens = expression.split(String.valueOf(separator));
         final Deque<Double> stack = new ArrayDeque<>();
         for (String token : tokens)
             evaluateTokenInPlace(token, stack);

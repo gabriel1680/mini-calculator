@@ -12,7 +12,7 @@ class ExpressionParser {
         this.separator = separator;
     }
 
-    String infixToPostfix(final String expression) {
+    String parse(final String expression) {
         final var postfix = new StringBuilder();
         final var operators = new Stack<Character>();
         for (int i = 0; i < expression.length(); i++) {
