@@ -37,7 +37,7 @@ public class AWTCalculatorDSL {
         view.onInput(controller::handle);
     }
 
-    public static AWTCalculatorDSL instance() throws Exception {
+    public static AWTCalculatorDSL calculator() throws Exception {
         if (instance == null) {
             instance = new AWTCalculatorDSL();
         }
@@ -49,17 +49,38 @@ public class AWTCalculatorDSL {
      */
     public AWTCalculatorDSL type(String... keys) {
         for (String key : keys) {
-            Button button = ComponentFinder.findAll(view.getComponents(), Button.class)
-                    .stream()
-                    .filter(b -> b.getLabel().equals(key))
-                    .findFirst()
-                    .orElseThrow(() -> new AssertionError("Button '" + key + "' not found"));
-
-            for (var listener : button.getActionListeners()) {
-                final var event = new ActionEvent(button, ActionEvent.ACTION_PERFORMED, key);
-                listener.actionPerformed(event);
-            }
+            click(key);
         }
+        return this;
+    }
+
+    public AWTCalculatorDSL equals() {
+        click("=");
+        return this;
+    }
+
+    public AWTCalculatorDSL clear() {
+        click("CE");
+        return this;
+    }
+
+    public AWTCalculatorDSL backspace() {
+        click("←");
+        return this;
+    }
+
+    public AWTCalculatorDSL invert() {
+        click("+/-");
+        return this;
+    }
+
+    public AWTCalculatorDSL basicMode() {
+        view.switchTo("BASIC");
+        return this;
+    }
+
+    public AWTCalculatorDSL scientificMode() {
+        view.switchTo("SCIENTIFIC");
         return this;
     }
 
@@ -76,14 +97,6 @@ public class AWTCalculatorDSL {
     }
 
     /**
-     * Switch calculator mode
-     */
-    public AWTCalculatorDSL switchTo(String mode) {
-        view.switchTo(mode);
-        return this;
-    }
-
-    /**
      * Assert the available buttons
      */
     public AWTCalculatorDSL shouldHaveButtons(String... expectedLabels) {
@@ -95,11 +108,17 @@ public class AWTCalculatorDSL {
         return this;
     }
 
-    /**
-     * Access the underlying view if needed
-     */
-    public AWTCalculatorView getView() {
-        return view;
+    private void click(String key) {
+        Button button = ComponentFinder.findAll(view.getComponents(), Button.class)
+                .stream()
+                .filter(b -> b.getLabel().equals(key))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Button '" + key + "' not found"));
+
+        for (var listener : button.getActionListeners()) {
+            final var event = new ActionEvent(button, ActionEvent.ACTION_PERFORMED, key);
+            listener.actionPerformed(event);
+        }
     }
 
     /**

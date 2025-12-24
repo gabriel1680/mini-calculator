@@ -1,26 +1,51 @@
 package org.gbl.gui.integration;
 
-import org.gbl.gui.awt.mode.CalculatorMode;
 import org.junit.jupiter.api.Test;
+
+import static org.gbl.gui.integration.AWTCalculatorDSL.BASIC_BUTTONS;
+import static org.gbl.gui.integration.AWTCalculatorDSL.SCIENTIFIC_BUTTONS;
+import static org.gbl.gui.integration.AWTCalculatorDSL.calculator;
 
 public class IntegrationTest {
 
     @Test
-    void evaluate() throws Exception {
-        AWTCalculatorDSL.instance()
-                .type("2", "+", "2", "=").shouldDisplay("4.0")
-                .type("4", "*", "4", "=").shouldDisplay("16.0")
-                .type("4", "*", "4", "CE").shouldDisplay("")
-                .type("1", ".", "0", "+", "0", ".", "1", "=").shouldDisplay("1.1")
-                .type("1", "+/-").shouldDisplay("(-1)").type("+/-").shouldDisplay("1").type("CE")
-                .type("4", "/", "4", "=").shouldDisplay("1.0");
+    void integration() throws Exception {
+        calculator()
+                .type("2", "+", "2").equals().shouldDisplay("4.0")
+                .type("4", "*", "4").equals().shouldDisplay("16.0")
+                .type("4", "*", "4").clear().shouldDisplay("")
+                .type("1", ".", "0", "+", "0", ".", "1").equals().shouldDisplay("1.1")
+                .type("1").invert().shouldDisplay("(-1)").invert().shouldDisplay("1").clear()
+                .type("4", "/", "4").equals().shouldDisplay("1.0")
+                .scientificMode()
+                .clear().type("√", "4").equals().shouldDisplay("2.0");
+    }
+
+    @Test
+    void functions() throws Exception {
+        calculator()
+                .type("1")
+                .invert()
+                .shouldDisplay("(-1)")
+                .invert()
+                .shouldDisplay("1");
+        calculator()
+                .type("1")
+                .clear()
+                .shouldDisplay("");
+        calculator()
+                .type("1", "2")
+                .backspace()
+                .shouldDisplay("1");
     }
 
     @Test
     void switchModes() throws Exception {
-        AWTCalculatorDSL.instance()
-                .shouldHaveButtons(AWTCalculatorDSL.BASIC_BUTTONS)
-                .switchTo(CalculatorMode.SCIENTIFIC.stringValue())
-                .shouldHaveButtons(AWTCalculatorDSL.SCIENTIFIC_BUTTONS);
+        calculator()
+                .shouldHaveButtons(BASIC_BUTTONS)
+                .scientificMode()
+                .shouldHaveButtons(SCIENTIFIC_BUTTONS)
+                .basicMode()
+                .shouldHaveButtons(BASIC_BUTTONS);
     }
 }
