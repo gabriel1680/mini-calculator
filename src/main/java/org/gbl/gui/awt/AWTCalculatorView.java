@@ -3,8 +3,8 @@ package org.gbl.gui.awt;
 import org.gbl.gui.awt.components.ButtonsPanel;
 import org.gbl.gui.awt.components.ContainerFrame;
 import org.gbl.gui.awt.components.Display;
-import org.gbl.gui.controller.CalculatorInput;
-import org.gbl.gui.controller.CalculatorView;
+import org.gbl.gui.presenter.CalculatorInput;
+import org.gbl.gui.presenter.CalculatorView;
 
 import java.awt.*;
 import java.util.function.Consumer;

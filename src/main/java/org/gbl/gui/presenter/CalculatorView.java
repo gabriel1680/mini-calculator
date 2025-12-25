@@ -1,4 +1,4 @@
-package org.gbl.gui.controller;
+package org.gbl.gui.presenter;
 
 import java.util.function.Consumer;
 

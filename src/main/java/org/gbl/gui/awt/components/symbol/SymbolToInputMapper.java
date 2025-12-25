@@ -1,6 +1,6 @@
 package org.gbl.gui.awt.components.symbol;
 
-import org.gbl.gui.controller.CalculatorInput;
+import org.gbl.gui.presenter.CalculatorInput;
 
 public final class SymbolToInputMapper {
 

@@ -1,7 +1,4 @@
-package org.gbl.gui;
-
-import org.gbl.gui.controller.CalculatorInput;
-import org.gbl.gui.controller.CalculatorView;
+package org.gbl.gui.presenter;
 
 import java.util.ArrayList;
 import java.util.Collection;

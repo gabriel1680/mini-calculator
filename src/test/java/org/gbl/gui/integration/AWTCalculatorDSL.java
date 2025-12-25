@@ -2,7 +2,7 @@ package org.gbl.gui.integration;
 
 import org.gbl.calculator.Calculator;
 import org.gbl.gui.awt.AWTCalculatorView;
-import org.gbl.gui.controller.ViewController;
+import org.gbl.gui.presenter.CalculatorPresenter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,9 +32,7 @@ public class AWTCalculatorDSL {
 
     private AWTCalculatorDSL() throws Exception {
         this.view = createViewOnEDT();
-        Calculator calculator = new Calculator();
-        ViewController controller = new ViewController(calculator, view);
-        view.onInput(controller::handle);
+        new CalculatorPresenter(new Calculator(), view);
     }
 
     public static AWTCalculatorDSL calculator() throws Exception {

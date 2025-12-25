@@ -5,7 +5,7 @@ import org.gbl.gui.awt.components.mode.CalculatorMode;
 import org.gbl.gui.awt.components.mode.Mode;
 import org.gbl.gui.awt.components.symbol.Symbol;
 import org.gbl.gui.awt.components.symbol.SymbolToInputMapper;
-import org.gbl.gui.controller.CalculatorInput;
+import org.gbl.gui.presenter.CalculatorInput;
 
 import java.awt.*;
 import java.util.function.Consumer;

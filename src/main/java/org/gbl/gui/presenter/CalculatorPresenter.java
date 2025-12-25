@@ -1,21 +1,56 @@
-package org.gbl.gui.controller;
+package org.gbl.gui.presenter;
 
 import org.gbl.calculator.Calculator;
-import org.gbl.gui.controller.CalculatorInput.Mode;
+import org.gbl.gui.presenter.CalculatorInput.Mode;
 
-public class ViewController {
+/**
+ * The {@code ViewController} class acts as the Presenter in the Model-View-Presenter (MVP)
+ * architecture for the calculator application.
+ *
+ * <p>Its main responsibilities are:
+ * <ul>
+ *     <li>Receive user inputs from the {@link org.gbl.gui.presenter.CalculatorView View}.</li>
+ *     <li>Executes the internal {@link org.gbl.calculator.Calculator} module based on input.</li>
+ *     <li>Maintain the input state via {@link InputState}.</li>
+ *     <li>Update the {@link org.gbl.gui.presenter.CalculatorView View} to reflect changes or
+ *     results.</li>
+ * </ul>
+ *
+ * <p>The {@code ViewController} decouples the view from the business logic, so that the
+ * calculator can process input and compute results without the view knowing the computation
+ * details.
+ *
+ * <p>Usage example:
+ * <pre>{@code
+ * Calculator calculator = new Calculator();
+ * CalculatorView view = new DummyCalculatorViewImplementation();
+ * ViewController controller = new ViewController(calculator, view);
+ * view.show();
+ * }</pre>
+ *
+ * <p>All input handling methods (digits, operators, evaluation, clear, backspace, invert, mode)
+ * are processed through {@link #handle(CalculatorInput)}.
+ *
+ * @author Gabriel P. Lopes
+ * @see org.gbl.gui.presenter.CalculatorView
+ * @see org.gbl.gui.presenter.CalculatorInput
+ * @see org.gbl.calculator.Calculator
+ * @see InputState
+ */
+public class CalculatorPresenter {
 
     private final Calculator calculator;
     private final CalculatorView view;
     private final InputState state;
 
-    public ViewController(Calculator calculator, CalculatorView view) {
+    public CalculatorPresenter(Calculator calculator, CalculatorView view) {
         this.calculator = calculator;
         this.view = view;
         this.state = new InputState();
+        view.onInput(this::handle);
     }
 
-    public void show() {
+    public void showView() {
         view.show();
     }
 
